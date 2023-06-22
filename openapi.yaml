@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+
+components:
+  schemas:
+    data:
+      type: object
+      properties:
+        content:
+          type: string
+          maxLength: 128
+      required:  
+        - content
+    problem:
+      type: object
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+      required:  
+        - type
+        - title
+        - detail
+        - status
+paths:
+  /health:
+    get:
+      responses:
+        '200':
+          description: Service is healthy.
+    head:
+      responses:
+        '200':
+          description: Service is healthy.
+  /data/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+    put:
+      operationId: PutData
+      description: Insert data into the database
+      requestBody:
+        description: Data contents
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/data'
+      responses:
+        '409':    # status code
+          description: Identifier already in use
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        '201':    # status code
+          description: Data inserted into the database
+
+    delete:
+      operationId: DeleteData
+      description: Delete data from the database
+      responses:
+        '204':
+          description: Data was removed or didn't exist in the database.
+    get:
+      operationId: GetData
+      description: Request data from the database
+      responses:
+        '404':    # status code
+          description: Data not found in the database
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        '200':    # status code
+          description: Data found in the database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'

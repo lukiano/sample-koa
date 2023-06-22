@@ -1,0 +1,43 @@
+{
+  "name": "sample-koa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.mjs",
+  "scripts": {
+    "start": "node --require '@opentelemetry/auto-instrumentations-node/register' dist/index.mjs",
+    "build": "npm run compile && npm run lint && npm test",
+    "compile": "tsc",
+    "lint": "eslint . --ext .mts",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lukiano/sample-koa.git"
+  },
+  "author": "Luciano Leggieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukiano/sample-koa/issues"
+  },
+  "homepage": "https://github.com/lukiano/sample-koa#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.354.0",
+    "@aws-sdk/lib-dynamodb": "^3.354.0",
+    "@koa/router": "^12.0.0",
+    "@opentelemetry/api": "^1.4.1",
+    "@opentelemetry/auto-instrumentations-node": "^0.37.1",
+    "http-problem-details": "^0.1.5",
+    "koa": "^2.14.2",
+    "koa-oas3": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.6",
+    "@types/koa__router": "^12.0.0",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.43.0",
+    "typescript": "^5.1.3"
+  }
+}
